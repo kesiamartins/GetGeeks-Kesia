@@ -1,0 +1,11 @@
+install node
+pip install -U pip
+pip install robotframework-browser
+rfbrowser init
+
+pip install Faker
+
+pip install robotframework-databaselibrary
+pip install psycopg2
+
+heroku CLI
