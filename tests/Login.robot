@@ -17,7 +17,7 @@ User Login
     User Should Be Logged In    ${user}
 
 Incorrect Pass
-    [Tags]      i_pass
+    [Tags]      i_pass      attempt_login
 
     ${user}     Create Dictionary       email=kesiasilvamartins@gmail.com       password=abc123
 
