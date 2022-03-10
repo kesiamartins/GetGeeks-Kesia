@@ -4,12 +4,12 @@ Documentation       Login test suite
 Resource        ${EXECDIR}/resources/Base.robot
 
 Test Setup      Start Session
-Test Teardown   Finish Session
+Test Teardown   After Test
 
 *Test Cases*
 User Login
-
-    ${user}                   Factory User Login
+    [Tags]      smoke
+    ${user}     Factory User      login
 
     Go To Login Page
     Fill Credentials            ${user}
@@ -45,3 +45,34 @@ Incorrect Email
     Fill Credentials  ${user}
     Submit Credentials
     Should Be Type Email
+
+Mandatory Email
+    [Tags]      attempt_login      mand_email       des
+
+    ${user}         Create Dictionary       email=${EMPTY}      password=abc123
+
+    Go To Login Page
+    Fill Credentials    ${user}
+    Submit Credentials
+    Alert Span Should Be     E-mail obrigatório
+
+Mandatory Pass
+    [Tags]      attempt_login      mand_pass        des
+
+    ${user}         Create Dictionary       email=kesia@gmail.com      password=${EMPTY}
+
+    Go To Login Page
+    Fill Credentials    ${user}
+    Submit Credentials
+    Alert Span Should Be     Senha obrigatória
+
+Mandatory Fields
+    [Tags]      attempt_login      mand_f       des
+
+    @{expected_alerts}      Create List
+    ...                     E-mail obrigatório
+    ...                     Senha obrigatória
+
+    Go To Login Page
+    Submit Credentials
+    Alert Spans Should Be     ${expected_alerts}

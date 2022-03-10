@@ -7,29 +7,54 @@ def get_hashed_pass(password):
     hashed = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt(8))
     return hashed
 
-def factory_user():
-    return {
-        "name": fake.first_name(),
-        "lastname": fake.last_name(),
-        "email": fake.free_email(),
-        "password": "qwe123"
+def factory_user(target):
+
+    data = {
+        'faker': {
+            "name": fake.first_name(),
+            "lastname": fake.last_name(),
+            "email": fake.free_email(),
+            "password": "qwe123"
+        },
+        'invalid_email': {
+            "name": "Pedro",
+            "lastname": "De Lara",
+            "email": "pedro_dl*hotmail.com",
+            "password": "qwe123"
+        },
+        'login': {
+            "name": "Kesia",
+            "lastname": "Martins",
+            "email": "kesiasilvamartins@gmail.com",
+            "password": "qwe123"
+        },
+        'be_geek': {
+            "name": "Kim",
+            "lastname": "Dotcom",
+            "email": "kim@dot.com",
+            "password": "qwe123",
+            "geek_profile": {
+                'whats': '11999999999',
+                'desc': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac aliquet libero. Fusce eget est ac.',
+                'printer_repair': 'Sim',
+                'work': 'Remoto',
+                'cost': '100'
+            }
+        },
+        'attempt_be_geek': {
+            "name": "Dio",
+            "lastname": "Linux",
+            "email": "dio@linux.com",
+            "password": "qwe123",
+            "geek_profile": {
+                'whats': '11999999999',
+                'desc': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam tristique mauris id pulvinar molestie. Integer tincidunt diam nec ullamcorper varius. Duis laoreet justo at sodales pulvinar. Nullam ornare egestas dapibus. Praesent sem tortor, eleifend in non.',
+                'printer_repair': 'Não',
+                'work': 'Remoto',
+                'cost': '150'
+            }
+        },
     }
 
-def factory_invalid_email():
-    
-    first_name = fake.first_name()
+    return data[target]
 
-    return {
-        "name": first_name,
-        "lastname": fake.last_name(),
-        "email": first_name.lower() + '&gmail.com',
-        "password": "qwe123"
-    }
-
-def factory_user_login():
-    return {
-        "name": "Kesia",
-        "lastname": "Martins",
-        "email": "kesiasilvamartins@gmail.com",
-        "password": "qwe123"
-    }
